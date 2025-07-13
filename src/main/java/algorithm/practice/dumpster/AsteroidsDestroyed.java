@@ -239,6 +239,25 @@ public class AsteroidsDestroyed {
     public static String baseNeg2(int n) {
         return Integer.toBinaryString(-n);
     }
+    public static class ListNode {
+        int val;
+        ListNode next;
+        ListNode(int val) {
+            this.val = val;
+        }
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+    public static int getDecimalValue(ListNode head) {
+        StringBuilder sb = new StringBuilder();
+        while (head != null) {
+            sb.append(head.val);
+            head = head.next;
+        }
+        return Integer.parseInt(sb.toString(),2);
+    }
     public static void main(String[] args) {
         System.out.println(Integer.toBinaryString(73));
         System.out.println(Integer.toBinaryString(-73));
