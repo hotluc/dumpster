@@ -10,16 +10,20 @@ public class Code04_RepeatedStringMatch {
     public static int repeatedStringMatch(String str1, String str2) {
         char[] s1 = str1.toCharArray();
         char[] s2 = str2.toCharArray();
-        int n = s1.length,m = s2.length,k=(m+n-1)/n,len=0;
-        for(int cnt = 0; cnt <n; cnt++){
+        int n = s1.length;
+        int m = s2.length;
+        // m / n 向上取整
+        int k = (m + n - 1) / n;
+        int len = 0;
+        for (int cnt = 0; cnt <= k; cnt++) {
             for (int i = 0; i < n; i++) {
                 s[len++] = s1[i];
             }
         }
         build(len);
-        long h2 = s2[0] -'a'+1;
-        for(int i=1; i<m; i++){
-            h2 = h2*base+s2[i]-'a'+1;
+        long h2 = s2[0] - 'a' + 1;
+        for (int i = 1; i < m; i++) {
+            h2 = h2 * base + s2[i] - 'a' + 1;
         }
         for (int l = 0, r = m - 1; r < len; l++, r++) {
             if (hash(l, r) == h2) {
@@ -27,7 +31,6 @@ public class Code04_RepeatedStringMatch {
             }
         }
         return -1;
-
     }
     public static int MAXN = 30001;
     public static char[]s = new char[MAXN];
