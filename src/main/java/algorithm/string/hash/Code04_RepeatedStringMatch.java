@@ -48,7 +48,7 @@ public class Code04_RepeatedStringMatch {
         long ans = hash[r];
         if (ans>0)
         {
-            ans -= hash[l-1]*pow[r-l+1];
+            ans -= l == 0 ? 0 : (hash[l - 1] * pow[r - l + 1]);
         }
         return ans;
     }
