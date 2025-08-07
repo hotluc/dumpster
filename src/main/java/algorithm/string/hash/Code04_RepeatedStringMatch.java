@@ -21,9 +21,9 @@ public class Code04_RepeatedStringMatch {
         for(int i=1; i<m; i++){
             h2 = h2*base+s2[i]-'a'+1;
         }
-        for (int l = 0,r=m-1; r < len; l++,r++) {
-            if (hash(l,r)==h2){
-                return r<n*k?k:k+1;
+        for (int l = 0, r = m - 1; r < len; l++, r++) {
+            if (hash(l, r) == h2) {
+                return r < n * k ? k : (k + 1);
             }
         }
         return -1;
