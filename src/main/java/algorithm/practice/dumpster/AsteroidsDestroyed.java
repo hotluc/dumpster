@@ -3,6 +3,7 @@ package algorithm.practice.dumpster;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class AsteroidsDestroyed {
     public static boolean asteroidsDestroyed(int mass, int[] asteroids) {
@@ -146,6 +147,7 @@ public class AsteroidsDestroyed {
         }
         return dp[0][n - 1];
     }
+
     public static int longestPalindromeSubseqZip(String str) {
         char[] s = str.toCharArray();
         int n = s.length;
@@ -166,6 +168,7 @@ public class AsteroidsDestroyed {
 
         return dp[n - 1]; // 最终的结果是整个字符串的 LPS 长度
     }
+
     public static int f(char[] s, int i, int j) {
         if (i > j) {
             return 0;
@@ -194,75 +197,130 @@ public class AsteroidsDestroyed {
         }
         System.out.println(Arrays.toString(cnt));
     }
+
     public static int countPrimeSetBits(int left, int right) {
         int ans = 0;
-        for (int i = left; i <= right ; i++) {
+        for (int i = left; i <= right; i++) {
             if (isPrime(Integer.bitCount(i))) {
                 ans++;
             }
         }
         return ans;
     }
-    public static boolean isPrime(int num){
-        if (num < 2){
+
+    public static boolean isPrime(int num) {
+        if (num < 2) {
             return false;
         }
-        for (int i = 2; i*i <= num; i++) {
+        for (int i = 2; i * i <= num; i++) {
             if (num % i == 0) {
                 return false;
             }
         }
         return true;
     }
+
     public static List<String> validStrings(int n) {
         return new ArrayList<>();
     }
+
     public static int findUnsortedSubarray(int[] nums) {
-        int n = nums.length,right=-1,max=Integer.MIN_VALUE,min=Integer.MAX_VALUE,left=n;
-        for (int i=0;i<n;i++){
-            if (max>nums[i]){
-                right=i;
+        int n = nums.length, right = -1, max = Integer.MIN_VALUE, min = Integer.MAX_VALUE, left = n;
+        for (int i = 0; i < n; i++) {
+            if (max > nums[i]) {
+                right = i;
             }
-            max=Math.max(max,nums[i]);
+            max = Math.max(max, nums[i]);
         }
-        for (int i=n-1;i>=0;i--){
-            if (min<nums[i]){
-                left=i;
+        for (int i = n - 1; i >= 0; i--) {
+            if (min < nums[i]) {
+                left = i;
             }
-            min=Math.min(min,nums[i]);
+            min = Math.min(min, nums[i]);
         }
-        return Math.max(0,right-left+1);
+        return Math.max(0, right - left + 1);
     }
+
     public static int minFlips(String target) {
         return 0;
     }
+
     public static String baseNeg2(int n) {
         return Integer.toBinaryString(-n);
     }
+
     public static class ListNode {
         int val;
         ListNode next;
+
         ListNode(int val) {
             this.val = val;
         }
+
         ListNode(int val, ListNode next) {
             this.val = val;
             this.next = next;
         }
     }
+
     public static int getDecimalValue(ListNode head) {
         StringBuilder sb = new StringBuilder();
         while (head != null) {
             sb.append(head.val);
             head = head.next;
         }
-        return Integer.parseInt(sb.toString(),2);
+        return Integer.parseInt(sb.toString(), 2);
+    }
+
+    public static int[] primes(int n) {
+        boolean[] visited = new boolean[n + 1];
+        int[] ans = new int[n + 1];
+        for (int i = 2; i * i <= n; i++) {
+            if (!visited[i]) {
+                for (int j = i * i; j <= n; j += i) {
+                    visited[j] = true;
+                }
+            }
+        }
+        for (int i = 2; i <= n; i++) {
+            if (!visited[i]) {
+                ans[i] = i;
+            }
+        }
+        return ans;
+    }
+
+    public static int xorOperation(int n, int start) {
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            list.add(start + 2 * i);
+            System.out.println(Integer.toBinaryString(list.get(i)));
+        }
+        int ans = list.getFirst();
+        for (int i = 1; i < n; i++) {
+            ans ^= list.get(i);
+        }
+        return ans;
+    }
+
+    public static String removeDigit(String number, char digit) {
+        int lastIndex = - 1;
+        for (int i = 0; i < number.length(); i++) {
+            if (number.charAt(i) == digit) {
+                lastIndex = i;
+                if (i+1<number.length() && number.charAt(i+1) > digit) {
+                    return number.substring(0, i)+number.substring(i+1);
+                }
+            }
+        }
+        return number.substring(0, lastIndex) + number.substring(lastIndex + 1);
+    }
+    public static boolean canArrange(int[] arr, int k) {
+        return false;
     }
     public static void main(String[] args) {
-        System.out.println(Integer.toBinaryString(73));
-        System.out.println(Integer.toBinaryString(-73));
         int[] firstList = new int[]{0, 2};
         int[] secondList = new int[]{1, 5};
-        System.out.println(Integer.bitCount(23));
+        System.out.println(removeDigit("1231", '1'));
     }
 }

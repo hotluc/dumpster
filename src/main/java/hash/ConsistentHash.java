@@ -1,4 +1,4 @@
-package algorithm.hash;
+package hash;
 
 import java.util.*;
 

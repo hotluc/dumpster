@@ -84,9 +84,50 @@ public class OrangesRotting {
         dfs(grid,i,j-1);
         dfs(grid,i,j+1);
     }
+    public static int maxCollectedFruits(int[][] fruits) {
+        int ans = 0;
+        for(int i=0;i<fruits.length;i++){
+            for(int j=0;j<fruits[0].length;j++){
+                if(fruits[i][j]!=0){
+                    ans+=fruits[i][j];
+                    System.out.println(ans);
+                    dfs1(fruits,i,j);
+                    dfs2(fruits,i,j);
+                    dfs3(fruits,i,j);
+                }
+            }
+        }
+        return ans;
+    }
+    public static void dfs1(int[][] grid, int i, int j) {
+        if (i<0||i>=grid.length||j<0||j>=grid[0].length||grid[i][j]==0) {
+            return;
+        }
+        grid[i][j] = 0;
+        dfs1(grid,i+1,j+1);
+        dfs1(grid,i+1,j);
+        dfs1(grid,i,j+1);
+    }
+    public static void dfs2(int[][] grid, int i, int j) {
+        if (i<0||i>=grid.length||j<0||j>=grid[0].length||grid[i][j]==0) {
+            return;
+        }
+        grid[i][j] = 0;
+        dfs2(grid,i+1,j-1);
+        dfs2(grid,i+1,j);
+        dfs2(grid,i+1,j+1);
+    }
+    public static void dfs3(int[][] grid, int i, int j) {
+        if (i<0||i>=grid.length||j<0||j>=grid[0].length||grid[i][j]==0) {
+            return;
+        }
+        grid[i][j] = 0;
+        dfs3(grid,i-1,j+1);
+        dfs3(grid,i,j+1);
+        dfs3(grid,i+1,j+1);
+    }
     public static void main(String[] args) {
-        int[][] grid = new int[][]{{2,1,1},{0,1,1},{1,0,1}};
-        int[][] f = new int[][]{{0,2}};
-        System.out.println(orangesRotting1(grid));
+        int[][] grid = new int[][]{{1,2,3,4},{5,6,8,7},{9,10,11,12},{13,14,15,16}};
+        System.out.println(maxCollectedFruits(grid));
     }
 }

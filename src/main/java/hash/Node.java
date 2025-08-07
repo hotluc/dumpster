@@ -1,7 +1,7 @@
-package algorithm.hash;
+package hash;
 
 import java.util.*;
-import algorithm.hash.HashUtils;
+
 /**
  * 节点类
  */

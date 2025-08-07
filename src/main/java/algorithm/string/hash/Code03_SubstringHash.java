@@ -46,4 +46,21 @@ public class Code03_SubstringHash {
             }
             return ans;
     }
+    public static int strStr(String str1, String str2) {
+        char[] s1 = str1.toCharArray();
+        char[] s2 = str2.toCharArray();
+        int n = s1.length;
+        int m = s2.length;
+        build(s1, n);
+        long h2 = s2[0] - 'a' + 1;
+        for (int i = 1; i < m; i++) {
+            h2 = h2 * base + s2[i] - 'a' + 1;
+        }
+        for (int l = 0, r = m - 1; r < n; l++, r++) {
+            if (hash(l, r) == h2) {
+                return l;
+            }
+        }
+        return -1;
+    }
 }

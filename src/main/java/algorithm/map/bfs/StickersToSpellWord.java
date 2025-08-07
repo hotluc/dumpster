@@ -1,6 +1,9 @@
 package algorithm.map.bfs;
 
 import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class StickersToSpellWord {
     public static int MAXN = 401;
@@ -77,10 +80,25 @@ public class StickersToSpellWord {
         }
         return builder.toString();
     }
-
+    public static int maximumLength(int[] nums) {
+        int[] cnt = new int[2];
+        ++cnt[nums[0]&1];
+        int ans = 1,last = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            ++cnt[nums[i]&1];
+            if (((nums[i]&1) ^ (last&1))==1) {
+                last = nums[i];
+                ans++;
+            }
+        }
+        ans = Math.max(ans, Math.max(cnt[0], cnt[1]));
+        return ans;
+    }
     public static void main(String[] args) {
         String[] stickers = new String[] {"with","example","science"};
         String target = "thehat";
+        AtomicInteger id = new AtomicInteger();
+        id.incrementAndGet();
         minStickers(stickers, target);
     }
 }

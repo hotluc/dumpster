@@ -1,4 +1,4 @@
-package algorithm.hash;
+package hash;
 
 public class HashUtils { /**
  * FNV1_32_HASH
