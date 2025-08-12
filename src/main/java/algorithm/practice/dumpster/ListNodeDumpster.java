@@ -217,6 +217,30 @@ public class ListNodeDumpster {
             pre.next = l2;
             end = l2;
         }
-
+    }
+    public static ListNode insertionSortList(ListNode head) {
+        if (head == null) {
+            return head;
+        }
+        ListNode sortedHead  = head,cur = head.next;
+        sortedHead.next = null;
+        while (cur != null) {
+            ListNode next = cur.next;
+            if (cur.val<sortedHead.val) {
+                cur.next = sortedHead;
+                sortedHead = cur;
+            }
+            else {
+                // 找到插入位置，插入到已排序链表中间或尾部
+                ListNode p = sortedHead;
+                while (p.next != null && p.next.val < cur.val) {
+                    p = p.next;
+                }
+                cur.next = p.next;
+                p.next = cur;
+            }
+            cur = next;
+        }
+        return sortedHead;
     }
 }

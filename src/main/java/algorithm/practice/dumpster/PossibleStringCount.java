@@ -544,9 +544,104 @@ public class PossibleStringCount {
         }
         return singleDigitSum != doubleDigitSum;
     }
+    public boolean possibleBipartition(int n, int[][] dislikes) {
+        List<List<Integer>>graph = new ArrayList<>();
+        for (int i = 0; i <= n; i++) {
+            graph.add(new ArrayList<>());
+        }
+        for (int[] dislike : dislikes) {
+            graph.get(dislike[0]).add(dislike[1]);
+            graph.get(dislike[1]).add(dislike[0]);
+        }
+        int[] color = new int[n + 1]; // 0: 未染色, 1: 红色, -1: 蓝色
+        for (int i = 1; i <= n; i++) {
+            if (color[i] == 0) {
+                if (!dfs(i, 1, color, graph) ){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    private boolean dfs(int u, int c, int[] color, List<List<Integer>> graph) {
+        color[u] = c;
+        for (int v : graph.get(u)) {
+            if (color[v] == c) {
+               return false;
+            }
+            if (color[v] == 0&&!dfs(v, -c, color, graph)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    Set<String> powerOf2Digits = new HashSet<>();
 
+    public boolean reorderedPowerOf2(int n) {
+        init();
+        return powerOf2Digits.contains(countDigits(n));
+    }
+
+    public void init() {
+        for (int n = 1; n <= 1e9; n <<= 1) {
+            powerOf2Digits.add(countDigits(n));
+        }
+    }
+
+    public String countDigits(int n) {
+        char[] cnt = new char[10];  // 存储数字0-9出现的次数
+        while (n > 0) {
+            ++cnt[n % 10];
+            n /= 10;
+        }
+        return new String(cnt);  // 把字符数组转为字符串
+    }
+    public static boolean[] vis;
+    public boolean reorderedPowerOf21(int n) {
+        char[] nums = Integer.toString(n).toCharArray();
+        Arrays.sort(nums);
+        vis = new boolean[nums.length];
+        return backtrack(nums, 0, 0);
+    }
+
+    public boolean backtrack(char[] nums, int idx, int num) {
+        if (idx == nums.length) {
+            return isPowerOfTwo(num);
+        }
+        for (int i = 0; i < nums.length; ++i) {
+            // 不能有前导零
+            if ((num == 0 && nums[i] == '0') || vis[i] || (i > 0 && !vis[i - 1] && nums[i] == nums[i - 1])) {
+                continue;
+            }
+            vis[i] = true;
+            if (backtrack(nums, idx + 1, num * 10 + nums[i] - '0')) {
+                return true;
+            }
+            vis[i] = false;
+        }
+        return false;
+    }
+    public boolean isPowerOfTwo(int n) {
+        return (n & (n - 1)) == 0;
+    }
+    public static List pow(int n) {
+        List<Integer> ans = new ArrayList<>();
+        while (n > 0) {
+            int p = n & -n;
+            ans.add(p);
+            n -= p;
+        }
+        return ans;
+    }
+    public static int[] productQueries(int n, int[][] queries) {
+        List<Integer> ans = new ArrayList<>();
+        for (int[] query : queries) {
+            ans.add(pow(query[0],query[1],query[2]));
+        }
+        return ans.stream().mapToInt(i -> i).toArray();
+    }
     public static void main(String[] args) {
+        System.out.println(pow(15));
         int[] nums = {1, 2, 3, 3, 2, 2};
-        System.out.println(longestSubarray(nums));
     }
 }
