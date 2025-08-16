@@ -327,6 +327,21 @@ public class TwoSum {
         }
         return set.size() == n;
     }
+    public double new21Game(int n, int k, int maxPts) {
+       if (k==0){
+           return 1.0;
+       }
+       double[] dp = new double[k + maxPts];
+        for (int i = k; i <= n && i < k + maxPts; i++) {
+            dp[i] = 1.0;
+        }
+        for (int i = k - 1; i >= 0; i--) {
+            for (int j = 1; j <= maxPts; j++) {
+                dp[i] += dp[i + j] / maxPts;
+            }
+        }
+        return dp[0];
+    }
     public static void main(String[] args) {
         String[] strs = {"eat","tea","tan","ate","nat","bat"};
         System.out.println(queryString("0110",4));;
