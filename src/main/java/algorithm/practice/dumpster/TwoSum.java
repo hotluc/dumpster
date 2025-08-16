@@ -308,12 +308,28 @@ public class TwoSum {
         }
         return new ArrayList<>(map.values());
     }
-    public List<List<String>> solveNQueens(int n) {
-
+    public static boolean queryString(String s, int n) {
+        Set<Integer> set = new HashSet<>();
+        char[] chars = s.toCharArray();
+        for (int i = 0,m=s.length(); i < m; i++) {
+            int x =  chars[i] - '0';
+            if (x==0){
+                continue;
+            }
+            for (int j = i+1; x <= n; j++) {
+                set.add(x);
+                if (j==m){
+                    break;
+                }
+                x = (x << 1) | (chars[j] - '0'); // 子串 [i,j] 的二进制数
+                System.out.println(Integer.toBinaryString(x));
+            }
+        }
+        return set.size() == n;
     }
     public static void main(String[] args) {
         String[] strs = {"eat","tea","tan","ate","nat","bat"};
-        System.out.println(groupAnagrams(strs));;
+        System.out.println(queryString("0110",4));;
     }
 
 }
