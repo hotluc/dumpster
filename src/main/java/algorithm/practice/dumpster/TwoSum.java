@@ -286,11 +286,34 @@ public class TwoSum {
         }
         return ans;
     }
+    public static List<List<String>> groupAnagrams(String[] strs) {
+        Map<String, List<String>> map = new HashMap<>();
+        for (String str : strs) {
+            int[] count = new int[26];
+            int len = str.length();
+            for (int i = 0; i < len; i++) {
+                count[str.charAt(i) - 'a']++;
+            }
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < 26; i++) {
+                if (count[i]!=0) {
+                    sb.append((char) ('a'+i));
+                    sb.append(count[i]);
+                }
+            }
+            String key = sb.toString();
+            List<String> list = map.getOrDefault(key, new ArrayList<>());
+            list.add(str);
+            map.put(key, list);
+        }
+        return new ArrayList<>(map.values());
+    }
+    public List<List<String>> solveNQueens(int n) {
+
+    }
     public static void main(String[] args) {
-        int[] players = {1, 2, 3};
-        int[] trainers = {10};
-        int target = 3;
-        System.out.println(subarraySum(players, target));
+        String[] strs = {"eat","tea","tan","ate","nat","bat"};
+        System.out.println(groupAnagrams(strs));;
     }
 
 }
